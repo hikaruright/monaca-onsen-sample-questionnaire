@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+    
+        angular.module('myApp', ['onsen']);
+    
+    //    ons.bootstrap();
+
+function takePicture(){
+    /*
+  ons.notification.alert({
+  message: 'メッセージ',
+  // もしくはmessageHTML: '<div>HTML形式のメッセージ</div>',
+  title: 'ダイアログのタイトル',
+  buttonLabel: 'OK',
+  animation: 'default', // もしくは'none'
+  // modifier: 'optional-modifier'
+  callback: function() {
+    // ボタンがタップされた
+  }
+});
+*/
+takeIncamera();
+}
+
+function takeIncamera(){
+    
+    //成功した際に呼ばれるコールバック関数
+    function onSuccess (imageData) {
+        var image = document.getElementById ('picture');
+        image.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    //失敗した場合に呼ばれるコールバック関数
+    function onFail (message) {
+        alert ('エラーです: ' + message);
+    }
+        
+    navigator.camera.getPicture (onSuccess, onFail, 
+        { 
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            cameraDirection: 1
+        }
+    );
+
+
+}
+
+    </script>
+</head>
+<body>
+    <ons-navigator var="myNavigator" page="page1.html">
+    </ons-navigator> 
+</body>
+</html>
